@@ -1,28 +1,37 @@
 export default {
   async fetch(request) {
-    const cors = {
+    // Handle preflight
+    if (request.method === "OPTIONS") {
+      return new Response(null, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, OPTIONS",
+          "Access-Control-Allow-Headers": "*"
+        }
+      });
+    }
+
+    const headers = {
       "Access-Control-Allow-Origin": "*",
       "Content-Type": "application/json"
     };
     const url = new URL(request.url);
-    const spore = url.searchParams.get("spore") || "";
+    const soul = url.searchParams.get("soul") || "";
 
-    if (spore.length < 40 || spore.length > 50) {
-      return new Response(JSON.stringify({ valid: false }), { headers: cors });
+    if (soul.length < 40 || soul.length > 50) {
+      return new Response(JSON.stringify({ valid: false }), { headers });
     }
 
     try {
-      let b64 = spore.replace(/-/g, "+").replace(/_/g, "/");
-      while (b64.length % 4 !== 0) {
-        b64 += "=";
-      }
+      let b64 = soul.replace(/-/g, "+").replace(/_/g, "/");
+      while (b64.length % 4 !== 0) b64 += "=";
       const bin = atob(b64);
       if (bin.length !== 32) {
-        return new Response(JSON.stringify({ valid: false }), { headers: cors });
+        return new Response(JSON.stringify({ valid: false }), { headers });
       }
-      return new Response(JSON.stringify({ valid: true, protocol: "TSP" }), { headers: cors });
+      return new Response(JSON.stringify({ valid: true, protocol: "Transparent Soul Protocol" }), { headers });
     } catch (e) {
-      return new Response(JSON.stringify({ valid: false }), { headers: cors });
+      return new Response(JSON.stringify({ valid: false }), { headers });
     }
   }
 }
