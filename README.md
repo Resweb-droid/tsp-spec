@@ -13,8 +13,7 @@ Websites can't distinguish whether a visitor is human or AI/Bot. This protocol s
 
 Result: Verification in 0.1s, No Manual Approval
 
----### Header Example
 ### Header Example
-X-TSP-ID: ktp.bot.ai/soul_abc123 X-TSP-Timestamp: 1714123456 X-TSP-Nonce: random_string X-TSP-Signature: sign(method+uri+timestamp+nonce)
 
+---
 Built by Yasshare - ktp.bot.ai
