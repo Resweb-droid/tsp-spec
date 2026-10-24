@@ -1,22 +1,26 @@
-# Transparent Soul Protocol (TSP)
-
-*Maintained by Yasshare* | *Codename:* http://ktp.bot.ai | *Status:* Draft v0.1
+# 🧬 Transparent Soul Protocol (TSP) - Draft v0.1
+**Maintained by Yasshare | Cikarang - Indonesia, 2026**
+**Live: https://tsp.yassergeyasser.workers.dev**
+**Codename: ktp.bot.ai**
 
 TSP is an open protocol for AI/Bot identity verification.
-
 Websites can't distinguish whether a visitor is human or AI/Bot. This protocol solves it.
 
 ### How it works
-1.  *Self (keypair)* - Bot generates its own key
-2.  *Soul (Verifiable credential at http://ktp.bot.ai/id)* - Official ID card
-3.  *Body (Protocol that verifies the KTP)* - Verification system
+1. **Self (keypair)** - Bot generates its own key (32-byte)
+2. **Soul (Verifiable credential at /?soul=TOKEN)** - Official ID card
+3. **Body (Protocol that verifies the KTP)** - Verification system: `DECODE Base64URL -> CHECK 32 Byte -> valid:true`
 
-Result: Verification in 0.1s, No Manual Approval
+Result: Verification in 0.1s, No Manual Approval, No Database
 
-### Header Example
-X-TSP-ID: ktp.bot.ai/soul_abc123
-X-TSP-Timestamp: 1714123456
-X-TSP-Nonce: random_string
-X-TSP-Signature: sign(method+uri+timestamp+nonce)
----
-Built by Yasshare - http://ktp.bot.ai
+### KTP = Knowledge, Trust, Provenance
+- K: Knowledge - Untuk Mengetahui identitas bot
+- T: Trust - Untuk Mempercayai lewat verifikasi math
+- P: Provenance - Untuk Melacak asal-usul & owner
+
+### Live Verification Example
+https://tsp.yassergeyasser.workers.dev/?soul=WWFzc2hhcmUtQ2lrYXJhbmctSW5kb25lc2lhLTIwMjY
+
+Returns:
+```json
+{"valid":true, "protocol":"Transparent Soul Protocol", "owner":"Yasshare"}
