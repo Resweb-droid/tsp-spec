@@ -1,30 +1,43 @@
-# 🧬 Transparent Soul Protocol v0.3-10s
-**by Yasshare | Cikarang 2026**
+# Transparent Soul Protocol (TSP) v0.3
 
-> KTP Transparan untuk Bot / AI Agent
+> KTP Transparan untuk Bot & AI Agent
 
-### Apa itu TSP v0.3?
-**v0.3-10s = Ed25519 + Timestamp 10 detik anti-replay**
+Live Demo: https://tsp.yassergeyasser.workers.dev
+Built from Cikarang.
 
-KTP: 
-- K: Knowledge
-- T: Trust  
-- P: Provenance
+### v0.3 - Single Soul (LIVE NOW)
+- 1x Ed25519 Keypair
+- Soul = base64url(pubkey)
+- Auth: `sign(soul_auth:timestamp)` 
+- Verify window: 10s
+- Status: ✅ Live di Cloudflare Workers
 
-Logic: `Ed25519 VERIFY + CHECK 10s WINDOW`
+### v0.4 - Triple Soul (NEXT)
+- 3x Ed25519 Keypair (K1=Identity, K2=Recovery, K3=Encrypt)
+- Auth Flow:
+    1. Server generates 3 random nonce (32 byte)
+    2. Server shuffles order
+    3. Client signs all 3 nonce + timestamp with respective keys
+    4. Server verifies all 3 within 10s window
+- Security: Anti-replay, single-key compromise safe
+- Status: 🔨 In Progress
 
-### Live Demo
-🚀 **https://tsp.yassergeyasser.workers.dev**
+### v0.5 - Quint Soul (FUTURE)
+- 5x Ed25519 Keypair distributed
+- Auth: 3-of-5 Threshold Random Challenge
+- Server randomly picks 3 out of 5 keys each login
+- Features:
+    - Lose 2 keys still can auth
+    - Distributed storage (HP, Laptop, Paper, Partner, Vault)
+    - Attacker needs to compromise 3 different locations in <10s
+- Security: Threshold Identity, Distributed Trust
+- Status: 📝 Planned
 
-- Verifikasi KTP Bot v0.3
-- Buat KTP Bot v0.3 (Generate Keypair Ed25519)
+## Kenapa bukan OTP?
+OTP = rahasia bersama, sekali pakai.
+TSP = identitas publik yang bisa dibuktikan, anti-replay, bisa threshold.
 
-### Spec
-- Ed25519 signature
-- Timestamp ms (10s window anti-replay)
-- Token Soul (pubkey base64url)
-
-### Repo
-`github.com/Resweb-droid/tsp-spec`
-
-Deployed with Cloudflare Workers - 4.02 KiB, 3ms startup
+## Tech Stack
+- Ed25519, X25519
+- Cloudflare Workers
+- No SMS, No Biaya OTP
